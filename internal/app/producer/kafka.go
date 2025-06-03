@@ -1,13 +1,11 @@
 package producer
 
 import (
+	"github.com/gammazero/workerpool"
+	"github.com/mathbdw/retranslator/internal/app/sender"
+	"github.com/mathbdw/retranslator/internal/entity"
 	"sync"
 	"time"
-
-	"github.com/ozonmp/omp-demo-api/internal/app/sender"
-	"github.com/ozonmp/omp-demo-api/internal/model"
-
-	"github.com/gammazero/workerpool"
 )
 
 type Producer interface {
@@ -20,7 +18,7 @@ type producer struct {
 	timeout time.Duration
 
 	sender sender.EventSender
-	events <-chan model.SubdomainEvent
+	events <-chan entity.ProductEvent
 
 	workerPool *workerpool.WorkerPool
 
@@ -32,7 +30,7 @@ type producer struct {
 func NewKafkaProducer(
 	n uint64,
 	sender sender.EventSender,
-	events <-chan model.SubdomainEvent,
+	events <-chan entity.ProductEvent,
 	workerPool *workerpool.WorkerPool,
 ) Producer {
 

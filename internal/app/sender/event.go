@@ -1,9 +1,9 @@
 package sender
 
 import (
-	"github.com/ozonmp/omp-demo-api/internal/model"
+	"github.com/mathbdw/retranslator/internal/entity"
 )
 
 type EventSender interface {
-	Send(subdomain *model.SubdomainEvent) error
+	Send(subdomain *entity.ProductEvent) error
 }

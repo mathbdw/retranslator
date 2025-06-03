@@ -1,15 +1,13 @@
 package retranslator
 
 import (
-	"time"
-
-	"github.com/ozonmp/omp-demo-api/internal/app/consumer"
-	"github.com/ozonmp/omp-demo-api/internal/app/producer"
-	"github.com/ozonmp/omp-demo-api/internal/app/repo"
-	"github.com/ozonmp/omp-demo-api/internal/app/sender"
-	"github.com/ozonmp/omp-demo-api/internal/model"
-
 	"github.com/gammazero/workerpool"
+	"github.com/mathbdw/retranslator/internal/app/consumer"
+	"github.com/mathbdw/retranslator/internal/app/producer"
+	"github.com/mathbdw/retranslator/internal/app/sender"
+	"github.com/mathbdw/retranslator/internal/entity"
+	"github.com/mathbdw/retranslator/internal/repo"
+	"time"
 )
 
 type Retranslator interface {
@@ -32,14 +30,14 @@ type Config struct {
 }
 
 type retranslator struct {
-	events     chan model.SubdomainEvent
+	events     chan entity.ProductEvent
 	consumer   consumer.Consumer
 	producer   producer.Producer
 	workerPool *workerpool.WorkerPool
 }
 
 func NewRetranslator(cfg Config) Retranslator {
-	events := make(chan model.SubdomainEvent, cfg.ChannelSize)
+	events := make(chan entity.ProductEvent, cfg.ChannelSize)
 	workerPool := workerpool.New(cfg.WorkerCount)
 
 	consumer := consumer.NewDbConsumer(

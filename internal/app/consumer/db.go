@@ -1,11 +1,10 @@
 package consumer
 
 import (
+	"github.com/mathbdw/retranslator/internal/entity"
+	"github.com/mathbdw/retranslator/internal/repo"
 	"sync"
 	"time"
-
-	"github.com/ozonmp/omp-demo-api/internal/app/repo"
-	"github.com/ozonmp/omp-demo-api/internal/model"
 )
 
 type Consumer interface {
@@ -15,7 +14,7 @@ type Consumer interface {
 
 type consumer struct {
 	n      uint64
-	events chan<- model.SubdomainEvent
+	events chan<- entity.ProductEvent
 
 	repo repo.EventRepo
 
@@ -28,7 +27,7 @@ type consumer struct {
 
 type Config struct {
 	n         uint64
-	events    chan<- model.SubdomainEvent
+	events    chan<- entity.ProductEvent
 	repo      repo.EventRepo
 	batchSize uint64
 	timeout   time.Duration
@@ -39,7 +38,7 @@ func NewDbConsumer(
 	batchSize uint64,
 	consumeTimeout time.Duration,
 	repo repo.EventRepo,
-	events chan<- model.SubdomainEvent) Consumer {
+	events chan<- entity.ProductEvent) Consumer {
 
 	wg := &sync.WaitGroup{}
 	done := make(chan bool)

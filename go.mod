@@ -1,4 +1,4 @@
-module github.com/ozonmp/omp-demo-api
+module github.com/mathbdw/retranslator
 
 go 1.16
 
