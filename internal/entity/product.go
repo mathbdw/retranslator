@@ -2,7 +2,7 @@ package entity
 
 import "fmt"
 
-// Product - entity
+// Product - Сущность продукты. Здесь хронятся данные по продуктам нашего сервиса
 type Product struct {
 	ID          uint64
 	Title       string `json:"title"`
@@ -18,10 +18,12 @@ const (
 	Updated
 	Removed
 
-	Deferred EventStatus = iota
+	Processe EventStatus = iota
+	Deferred
 	Processed
 )
 
+// ProductEvent - Сущность событий над Product
 type ProductEvent struct {
 	ID     uint64
 	Type   EventType

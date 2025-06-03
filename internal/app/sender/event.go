@@ -5,5 +5,5 @@ import (
 )
 
 type EventSender interface {
-	Send(subdomain *entity.ProductEvent) error
+	Send(product *entity.ProductEvent) error
 }
